@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S_CARS Rental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color:greenyellow;
+            margin-left: 30px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color:lavender;
+        }
+
+        .hero {
+            background-color:teal;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .hero button {
+            padding: 10px 20px;
+            background: #222;
+            color: pink;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .vehicles {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .vehicle-list {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 280px;
+        }
+
+        .card img {
+            width: 100%;
+        }
+
+        .card button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #f4b400;
+            border: none;
+            cursor: pointer;
+        }
+
+        .booking {
+            background: #f9f9f9;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .booking form {
+            max-width: 400px;
+            margin:auto;
+        }
+
+        .booking input,
+        .booking select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .booking button {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .cars{
+            display:flex;
+            gap:20px;
+        }
+        footer {
+            background:burlywood;
+            color:tomato;
+            text-align: center;
+            text-style: bold;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        h1{
+            text-align:right;
+            color:greenyellow;
+        }
+    </style>
+</head>
+    <header>
+        <h1>S_cars Rental</h1>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">VEHICLES</a>
+            <a href="#">SERVICES</a>
+            <a href="#">CONTACT</a>
+            <a href="#">LOGIN</a>
+        </nav>
+    </header>
+    <section class="hero">
+        <h2>Rent Your Ride Anytime</h2>
+        <p>Cars at Affordable Prices</p>
+        <button>Book Now</button>
+    </section>
+    <section class="cars">
+        <h2>Available cars</h2>
+            <div class="cars-list">
+            <div class="card">
+                <img src="C:\Users\RIBCA\Downloads\Screenshot_22-12-2025_162757_www.bing.com.jpeg" alt="Car">
+                <h3>Swift</h3>
+                <p>₹800/ day</p>
+                <button>Rent Now</button>
+            </div>
+
+            <div class="card">
+                <img src="C:\Users\RIBCA\Downloads\Screenshot_22-12-2025_163250_cdni.autocarindia.com.jpeg" alt="Car">
+                <h3>XUV300</h3>
+                <p>₹1000/day</p>
+                <button>Rent Now</button>
+            </div>
+
+            <div class="card">
+                <img src="C:\Users\RIBCA\Downloads\Screenshot_22-12-2025_163436_www.livemint.com.jpeg" alt="Car">
+                <h3>Honda</h3>
+                <p>₹500/day</p>
+                <button>Rent Now</button>
+            </div>
+        </div>
+    </section>
+    <section class="booking">
+        <h2>Book Your Car</h2>
+        <form>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <select>
+                <option>Select Vehicle</option>
+                <option>Swift</option>
+                <option>XUV300</option>
+                <option>Creta</option>
+            </select>
+            <input type="date" placeholder="From Date">
+            <input type="date" placeholder="To Date">
+            <button>Submit</button>
+        </form>
+        <section class=""feedback">
+        <h2>Feedback</h2>
+        <p>Your valuable feedback means alot for us</p>
+        <form>
+            <input type="text" placeholder="feedback">
+        </form>
+    </section>
+    <footer>
+        <p>THANKYOU</p>
+    </footer>
+
+</body>
+</html>
+
+         
