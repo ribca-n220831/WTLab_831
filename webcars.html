@@ -135,8 +135,9 @@
     </header>
     <section class="hero">
         <h2>Rent Your Ride Anytime</h2>
+        <p id ="bookinginfo"></p>
         <p>Cars at Affordable Prices</p>
-        <button>Book Now</button>
+        <button onclick="increasebooking()">Book Now</button>
     </section>
     <section class="cars">
         <h2>Available cars</h2>
@@ -188,8 +189,35 @@
     <footer>
         <p>THANKYOU</p>
     </footer>
-
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded",function( ){
+  alert("Welcome to S_car Rentals");
+ const companyName="S_car Rentals";
+ let bookingcount=0;
+const bookinginfo=document.getElementById("bookinginfo");
+ bookinginfo.innerText=companyName + " | bookings: " + bookingcount;
+ window.increasebooking=function(){
+    bookingcount++;
+    bookinginfo.innerText=companyName + " | bookings: " + bookingcount;
+};
+window.bookingpop=function(){
+    alert ("Booking started");
+    let confirmbooking = confirm("Do you want to continue??");
+    if (confirmbooking){
+        let name = prompt("Enter your name:");
+        alert("Thankyou" + name);
+        increasebooking();
+    }
+    else{
+        alert("Booking Cancelled");}
+    }
+
+    
+});
+
+</script>
+
 
          
