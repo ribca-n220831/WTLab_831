@@ -29,3 +29,35 @@ Removes a specific Git configuration setting.
 git config --unset user.name
 ### Screenshot Proof:
 <img width="1366" height="720" alt="configuration commands" src="https://github.com/user-attachments/assets/ad4dfbee-ccbd-4c25-8350-de8c7a9c16ca" />
+
+# Repository Setup Commands
+## 5. git init
+### Syntax:
+git init
+### Purpose:
+Initializes a new Git repository in the current directory. It creates a hidden .git folder to track project changes.
+### Example:
+git init
+## 6. git clone
+### Syntax:
+git clone <repository-url>
+### Purpose:
+Creates a copy of an existing remote repository into your local system.
+### Example:
+git clone https://github.com/ribca-n220831/WTLab_831.git
+## 7. git clone --branch
+### Syntax:
+git clone --branch <branch-name> <repository-url>
+### Purpose:
+Clones a specific branch from the remote repository instead of the default branch.
+### Example:
+git clone --branch master https://github.com/ribca-n220831/WTLab_831.git
+## 8. git clone --depth
+### Syntax:
+git clone --depth <number> <repository-url>
+### Purpose:
+Clones the repository with limited commit history (shallow clone). This reduces download size and time.
+### Example:
+git clone --depth 1 https://github.com/ribca-n220831/WTLab_831.git
+### Screenshot Proof:
+<img width="1366" height="768" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/402a3c19-2049-41c9-850b-565099023289" />
