@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Documents - S_CARS Rental</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth { padding: 60px 20px; text-align: center; }
+        .auth-message { color: teal; font-weight: bold; margin-bottom: 20px; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>S_CARS Rental</h1>
+        <nav>
+            <a href="index.html">HOME</a>
+            <a href="uploads.html">UPLOADS</a>
+            <a href="#">VEHICLES</a>
+            <a href="#">SERVICES</a>
+            <a href="#">CONTACT</a>
+            <a href="login.html">LOGIN</a>
+        </nav>
+    </header>
+
+    <section class="auth">
+        <h2>Upload Rental Documents</h2>
+        <form action="uploads.php" method="POST" enctype="multipart/form-data" class="auth-form">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="vehicle" required>
+                <option value="">Select Vehicle</option>
+                <option>Swift</option>
+                <option>XUV300</option>
+                <option>Honda</option>
+            </select>
+            <input type="date" name="start_date" required>
+            <input type="date" name="end_date" required>
+            
+            <!-- File Upload specific input -->
+            <input type="file" name="fileupload" accept=".pdf,.jpg,.jpeg,.png,.txt" required>
+            
+            <button type="submit" name="book">Upload Document</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>THANK YOU</p>
+    </footer>
+</body>
+</html>
