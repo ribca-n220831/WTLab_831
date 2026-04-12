@@ -1,48 +1,48 @@
 <?php
 session_start();
 
-// Strict session check to verify auth tracking
-if (!isset($_SESSION['email'])) {
-    header("Location: login.html");
-    exit();
+// Redirect to login if session not set
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit;
 }
+
+// Local variables from session
+$name    = $_SESSION['user_name'];
+$email   = $_SESSION['user_email'];
+$picture = $_SESSION['user_picture'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Secure Dashboard - S_CARS</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .dashboard-container { padding: 60px 20px; text-align: center; }
-        .logout-btn { display: inline-block; margin-top: 20px; text-decoration: none; background: tomato; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold;}
-        .logout-btn:hover { background: darkred; }
-        .dashboard-container h2 { color: teal; font-size: 32px; }
-        .dashboard-container p { margin-top: 15px; font-size: 18px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Dashboard - Vehicle Rental</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f9ff; }
+    .box { width: 520px; margin: 40px auto; padding: 24px;
+           background: #fff; border-radius: 10px;
+           box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { color: #e67e22; }
+    img { border-radius: 50%; width: 80px;
+          height: 80px; margin-bottom: 10px; }
+    a { display: inline-block; margin: 6px 0; color: #e67e22; }
+    .info { background: #f9f9f9; padding: 12px;
+            border-radius: 6px; margin: 10px 0; }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>S_CARS Rental</h1>
-        <nav>
-            <a href="index.html">HOME</a>
-            <a href="uploads.html">UPLOADS</a>
-            <a href="dashboard.php">DASHBOARD</a>
-            <a href="logout.php">LOGOUT</a>
-        </nav>
-    </header>
-
-    <div class="dashboard-container">
-        <h2>Welcome to your Secured Dashboard, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
-        <p>You are successfully logged in with the email: <strong><?php echo htmlspecialchars($_SESSION['email']); ?></strong></p>
-        <p>Your session is currently active and authenticated seamlessly through MongoDB.</p>
-        
-        <br><br>
-        <a href="logout.php" class="logout-btn">Logout of Account</a>
+  <div class="box">
+    <img src="<?php echo htmlspecialchars($picture); ?>"
+         alt="Profile Picture">
+    <h2>Welcome, <?php echo htmlspecialchars($name); ?>!</h2>
+    <div class="info">
+      <p><b>Email:</b> <?php echo htmlspecialchars($email); ?></p>
+      <p><b>Login Method:</b> Google OAuth</p>
     </div>
-
-    <footer>
-        <p>THANK YOU</p>
-    </footer>
+    <p>Your login is active. Explore vehicle rental services:</p>
+    <a href="index.html">Vehicle Rental Home</a><br>
+    <a href="uploads.html">Upload Driving Licence</a><br>
+    <a href="logout.php">Log Out</a>
+  </div>
 </body>
 </html>
