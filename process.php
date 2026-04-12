@@ -9,7 +9,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start_date = htmlspecialchars($_POST['start_date'] ?? '');
         $end_date = htmlspecialchars($_POST['end_date'] ?? '');
         
+        $uploadedFile = '';
+        $uploadDir = __DIR__ . '/uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        // File upload tracking using $_FILES superglobal and move_uploaded_file()
+        if (isset($_FILES['fileupload']) && $_FILES['fileupload']['error'] === UPLOAD_ERR_OK) {
+            $originalName = $_FILES['fileupload']['name'];
+            $safeName = preg_replace('/[^a-zA-Z0-9._-]/', '_', $originalName);
+            $ext = strtolower(pathinfo($safeName, PATHINFO_EXTENSION));
+            $allowed = ['pdf', 'jpg', 'jpeg', 'png', 'txt'];
+
+            if (in_array($ext, $allowed, true) && $_FILES['fileupload']['size'] <= 5 * 1024 * 1024) {
+                // Prepend timestamp to ensure unique filename
+                $newName = time() . '_' . $safeName;
+                $targetPath = $uploadDir . $newName;
+                
+                if (move_uploaded_file($_FILES['fileupload']['tmp_name'], $targetPath)) {
+                    $uploadedFile = $newName; // store the filename internally
+                }
+            } else {
+                $message = "File validation failed. Invalid extension or size over 5MB.";
+            }
+        }
+        
+        // Output data locally to simulate DB storage behavior referenced in example
+        $data = "$name | $email | $vehicle | $start_date | $end_date | $uploadedFile\n";
+        file_put_contents('bookings.txt', $data, FILE_APPEND);
+
         $message = "Thank you, <strong>$name</strong>! Your booking for a <strong>$vehicle</strong> from $start_date to $end_date is confirmed.<br>A confirmation email has been sent to $email.";
+        
+        if ($uploadedFile) {
+            $message .= "<br><br><strong>File uploaded successfully:</strong> <br><a style='display:inline-block; margin-top:10px; background:#4CAF50; padding:10px; color:white; text-decoration:none; border-radius:4px;' href='download.php?file=" . urlencode($uploadedFile) . "'>Download Submitted File</a>";
+        }
+        
     } elseif (isset($_POST['submit_feedback'])) {
         $feedback = htmlspecialchars($_POST['feedback'] ?? '');
         $message = "Thank you for your valuable feedback: <br><em>\"$feedback\"</em>";
@@ -23,15 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <style>
             body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f9f9f9; }
             .container { background: white; padding: 30px; border-radius: 8px; border: 1px solid #ccc; max-width: 500px; margin: auto; }
-            a { display: inline-block; margin-top: 20px; text-decoration: none; background: #222; color: white; padding: 10px 20px; border-radius: 5px; }
-            a:hover { background: #444; }
+            .back-btn { display: inline-block; margin-top: 20px; text-decoration: none; background: #222; color: white; padding: 10px 20px; border-radius: 5px; }
+            .back-btn:hover { background: #444; }
         </style>
     </head>
     <body>
         <div class="container">
             <h2>Submission Result</h2>
             <p>' . $message . '</p>
-            <a href="index.html">Go Back</a>
+            <a href="index.html" class="back-btn">Go Back</a>
         </div>
     </body>
     </html>';

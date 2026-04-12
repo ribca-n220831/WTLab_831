@@ -174,7 +174,7 @@
 
     <section class="booking">
         <h2>Book Your Car</h2>
-        <form action="process.php" method="POST" onsubmit="submitForm(event)">
+        <form action="process.php" method="POST" enctype="multipart/form-data" onsubmit="submitForm(event)">
             <input type="text" name="name" id="name" placeholder="Name" required>
             <input type="email" name="email" id="email" placeholder="Email" required>
             <select name="vehicle" id="vehicle" required>
@@ -185,6 +185,7 @@
             </select>
             <input type="date" name="start_date" id="start_date" required>
             <input type="date" name="end_date" id="end_date" required>
+            <input type="file" name="fileupload" id="fileupload" accept=".pdf,.jpg,.jpeg,.png,.txt" required>
             <button type="submit" name="book">Submit</button>
         </form>
         <div id="result" style="margin-top: 15px; font-weight: bold; color: teal;"></div>
