@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - S_CARS Rental</title>
+    <title>Signup - S_CARS Rental</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .auth { padding: 60px 20px; text-align: center; }
-        .auth-message { color: teal; font-weight: bold; margin-bottom: 20px; padding: 15px; border-radius: 5px; }
-        .register-link { margin-top: 15px; display: block; color: teal; text-decoration: none; }
+        .auth-message { font-weight: bold; margin-bottom: 20px; padding: 15px; border-radius: 5px;}
+        .auth-success { color: #155724; background-color: #d4edda; }
+        .auth-error { color: #721c24; background-color: #f8d7da; }
+        .login-link { margin-top: 15px; display: block; color: teal; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -24,13 +26,14 @@
     </header>
 
     <section class="auth">
-        <h2>Login to Your Account</h2>
-        <form action="login.php" method="POST" class="auth-form">
+        <h2>Create an Account</h2>
+        <form action="signup.php" method="POST" class="auth-form">
+            <input type="text" name="name" placeholder="Full Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <button type="submit">Sign Up</button>
         </form>
-        <a href="signup.html" class="register-link">Don't have an account? Sign up here.</a>
+        <a href="login.html" class="login-link">Already have an account? Login here.</a>
     </section>
 
     <footer>
