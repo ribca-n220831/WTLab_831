@@ -31,5 +31,51 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    // Note: window.bookingpop exists above.
+});
 
+// --- Lab JS Implementations ---
+function weluser() {
+    return confirm("YOU WANT TO CONTINUE ??");
+}
+
+function showAlert() {
+    alert("Welcome to S_CARS Rental Dashboard");
+}
+
+function showmsg() {
+    alert("Vehicle booked successfully!");
+}
+
+function submitForm(event) {
+    if (!weluser()) {
+        event.preventDefault();
+        return false;
+    }
+    
+    var name = document.getElementById("name").value;
+    var vehicle = document.getElementById("vehicle").value;
+    var start_date = document.getElementById("start_date").value;
+    var end_date = document.getElementById("end_date").value;
+    
+    var message = "Mr/Ms: " + name + " reserved a " + vehicle + " from " + start_date + " to " + end_date;
+    document.getElementById("result").innerHTML = message;
+    
+    showmsg();
+    
+    event.preventDefault();
+    setTimeout(function() {
+        event.target.submit();
+    }, 2000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    showAlert();
+    
+    const cells = document.querySelectorAll(".card");
+    cells.forEach(cell => {
+        cell.addEventListener("click", () => {
+            cell.style.backgroundColor = "#d1f7c4";
+        });
+    });
 });
