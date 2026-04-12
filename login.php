@@ -1,39 +1,38 @@
 <?php
+session_start();
 require 'db.php';
 
 function validateLogin() {
-    global $conn; // Global variable use via global keyword
-    $message = ""; // Local string variable
-    $isValid = false; // Local boolean variable
+    global $collection;
+    $message = "";
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'] ?? ''; 
         $pwd = $_POST['password'] ?? ''; 
         
         if ($email && $pwd) {
-            $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE email = ?");
-            if (!$stmt) {
-                die("Query preparation failed: " . $conn->error); // Output & control: die()
-            }
-            
-            $stmt->bind_param("s", $email);
-            if (!$stmt->execute()) {
-                die("Query execution failed: " . $stmt->error); // Output & control: die()
-            }
-            
-            $result = $stmt->get_result();
-            if ($row = $result->fetch_assoc()) {
-                if (password_verify($pwd, $row['password'])) {
-                    $isValid = true;
-                    // string concatenation
-                    $message = "Welcome back, " . $row['username'] . "!";
+            try {
+                // Find document corresponding to the username mapped in NoSQL
+                $user = $collection->findOne(['email' => $email]);
+                
+                if ($user) {
+                    if (password_verify($pwd, $user['password'])) {
+                        // Handle native Session verification
+                        $_SESSION['email'] = $user['email'];
+                        $_SESSION['username'] = $user['username'];
+                        
+                        // Force redirect to secure dashboard successfully
+                        header("Location: dashboard.php");
+                        exit();
+                    } else {
+                        $message = "Invalid password.";
+                    }
                 } else {
-                    $message = "Invalid password.";
+                    $message = "Email not found.";
                 }
-            } else {
-                $message = "Email not found.";
+            } catch (Exception $e) {
+                die("Database query failed: " . $e->getMessage());
             }
-            $stmt->close();
         } else {
             $message = "Please enter both email and password.";
         }
@@ -53,7 +52,7 @@ $message = validateLogin();
     <div class="container">
         <h2>Login Status</h2>
         <p><strong><?php print $message; ?></strong></p>
-        <a href="index.html">Go to Dashboard</a>
+        <a href="index.html">Go to Public Dashboard</a>
         <a href="login.html">Back to Login</a>
     </div>
 </body>

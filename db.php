@@ -1,17 +1,17 @@
 <?php
-// Database connection file (db.php)
+// Connect to MongoDB
+require 'vendor/autoload.php';
 
-// Global variables for database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "userdb";
-
-// Connect to MySQL using global variables
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Identify connection failure and terminate execution using die()
-if ($conn->connect_error) {
-    die("Database Connection failed: " . $conn->connect_error);
+try {
+    // Configure connection to local MongoDB server instance
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    
+    // Select the target database
+    $db = $client->userdb; 
+    
+    // Select the target collection (equivalent to table)
+    $collection = $db->users; 
+} catch (Exception $e) {
+    die("Error connecting to MongoDB: " . $e->getMessage());
 }
 ?>

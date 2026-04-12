@@ -1,60 +1,38 @@
 <?php
 require 'db.php';
 
-// Function containing static variable
-function incrementRegistrationCount() {
-    static $registrationCount = 0;
-    $registrationCount++;
-    return $registrationCount;
-}
-
-$message = ""; // Local variable
-$isSuccess = false; // boolean datatype
-$userId = 0; // integer datatype
-$count = 0;
+$message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'] ?? ''; // string datatype
-    $email = $_POST['email'] ?? ''; 
+    $name = htmlspecialchars($_POST['name'] ?? '');
+    $email = htmlspecialchars($_POST['email'] ?? ''); 
     $pwd = $_POST['password'] ?? ''; 
     
-    $userArr = array($name, $email); // array datatype
-    
     if ($name && $email && $pwd) {
-        global $conn; // Global variable reference
+        global $collection;
         
-        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        if (!$stmt) {
-            die("Query preparation failed: " . $conn->error); // control: die()
-        }
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        
-        if ($stmt->num_rows > 0) {
-            $message = "Email already registered!";
-        } else {
-            $stmt->close();
+        try {
+            // Check if email already exists locally in MongoDB NoSQL
+            $existingUser = $collection->findOne(['email' => $email]);
             
-            $hashed_pwd = password_hash($pwd, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            if (!$stmt) {
-                die("Query preparation failed: " . $conn->error); // control: die()
-            }
-            $stmt->bind_param("sss", $userArr[0], $userArr[1], $hashed_pwd);
-            
-            if ($stmt->execute()) {
-                $userId = $stmt->insert_id; // integer datatype assignment
-                $isSuccess = true;
-                $count = incrementRegistrationCount(); // static variable call
+            if ($existingUser) {
+                $message = "Email already registered!";
             } else {
-                die("Query execution failed: " . $stmt->error); // control: die()
+                $hashed_pwd = password_hash($pwd, PASSWORD_DEFAULT);
+                $insertOneResult = $collection->insertOne([
+                    'username' => $name,
+                    'email' => $email,
+                    'password' => $hashed_pwd
+                ]);
+                
+                if ($insertOneResult->getInsertedCount() == 1) {
+                    $message = "Registration successful for " . $name . "!";
+                } else {
+                    $message = "Error registering user in MongoDB.";
+                }
             }
-        }
-        $stmt->close();
-        
-        if ($isSuccess) {
-            $message = "Registration successful for " . htmlspecialchars($userArr[0]) . "! Your ID is: " . $userId . " (Processed Count: $count)";
+        } catch (Exception $e) {
+            die("Database operation failed: " . $e->getMessage());
         }
     } else {
         $message = "Please fill in all fields.";
