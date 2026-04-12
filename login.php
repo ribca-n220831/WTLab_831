@@ -46,44 +46,15 @@ $message = validateLogin();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - S_CARS Rental</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .auth { padding: 60px 20px; text-align: center; }
-        .auth-message { color: teal; font-weight: bold; margin-bottom: 20px; }
-        .register-link { margin-top: 15px; display: block; color: teal; text-decoration: none; }
-    </style>
+    <title>Login Result</title>
+    <style>body { font-family: Arial; text-align: center; padding: 50px; background-color: #f9f9f9; } .container { background: white; padding: 30px; border-radius: 8px; border: 1px solid #ccc; max-width: 500px; margin: auto; } a { display: inline-block; margin-top: 20px; text-decoration: none; background: #222; color: white; padding: 10px 20px; border-radius: 5px; margin-right: 10px; } a:hover { background: #444; }</style>
 </head>
 <body>
-    <header>
-        <h1>S_CARS Rental</h1>
-        <nav>
-            <a href="index.html">HOME</a>
-            <a href="#">VEHICLES</a>
-            <a href="#">SERVICES</a>
-            <a href="#">CONTACT</a>
-            <a href="login.php">LOGIN</a>
-        </nav>
-    </header>
-
-    <section class="auth">
-        <h2>Login to Your Account</h2>
-        <?php if ($message): ?>
-            <!-- Output & Control: print for login status message -->
-            <p class="auth-message"><?php print $message; ?></p>
-        <?php endif; ?>
-        <form action="login.php" method="POST" class="auth-form">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <a href="register.php" class="register-link">Don't have an account? Register here.</a>
-    </section>
-
-    <footer>
-        <p>THANK YOU</p>
-    </footer>
+    <div class="container">
+        <h2>Login Status</h2>
+        <p><strong><?php print $message; ?></strong></p>
+        <a href="index.html">Go to Dashboard</a>
+        <a href="login.html">Back to Login</a>
+    </div>
 </body>
 </html>
